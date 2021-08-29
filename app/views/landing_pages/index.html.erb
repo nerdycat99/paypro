@@ -1,1 +1,11 @@
-<h1>landing page for paypro</h1>
+<br />
+<div class="col-10 offset-1">
+  <h1>welcome to paypro</h1>
+  <h4>to get started, import a valid css file and we'll summarise the payment details for you</h4>
+  <br>
+  <%= form_tag payslips_path, multipart: true, class: "ui form" do %>
+    <%= file_field_tag :file, class: "ui button green" %>
+    <%= submit_tag "Import", class: "ui button" %>
+  <% end %>
+</div>
+
