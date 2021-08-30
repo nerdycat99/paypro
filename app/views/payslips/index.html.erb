@@ -1,6 +1,37 @@
 <br />
 <div class="col-10 offset-1">
   <h1>payslip information</h1>
-  <h4><%= @payslips.inspect %></h4>
   <br>
+
+  <table>
+    <tr>
+      <td>unique employees:</td>
+      <td><%= @payslips.unique_employees.count %></td>
+    </tr>
+    <tr>
+      <td>earliest pay period:</td>
+      <td><%= @payslips.earliest_pay_period.strftime("%B") %></td>
+    </tr>
+    <tr>
+      <td>latest pay period:</td>
+      <td><%= @payslips.latest_pay_period.strftime("%B") %><br></td>
+    </tr>
+    <tr>
+      <td>total amount paid:</td>
+      <td><%= @payslips.total_amount_paid %><br></td>
+    </tr>
+    <tr>
+      <td>total overtime paid:</td>
+      <td><%= @payslips.total_overtime_pay %><br></td>
+    </tr>
+    <tr>
+      <td>total ordinary paid:</td>
+      <td><%= @payslips.total_ordinary_pay %><br></td>
+    </tr>
+    <tr>
+      <td>overtime hours worked:</td>
+      <td><%= @payslips.overtime_hours %><br></td>
+    </tr>
+  </table>
+
 </div>
