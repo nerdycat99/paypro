@@ -3,7 +3,8 @@ class PayslipsController < ApplicationController
 
   def create
     return redirect_back(fallback_location: root_path, notice: "There was a problem with file") unless valid_csv?
-    @payslips = generate_payslips_for(selected_file)
+    payslips = Payslips.new
+    @payslips = generate_payslips_for(selected_file, payslips)
     render :index
   end
 
@@ -21,10 +22,8 @@ class PayslipsController < ApplicationController
     params['file'].content_type == "text/csv"
   end
 
-  def generate_payslips_for(selected_file)
-    csv = File.read(selected_file)
-    payslips = Payslips.new
-    CSV.parse(csv, headers: true).each do |row|
+  def generate_payslips_for(selected_file, payslips)
+    CSV.foreach(selected_file, headers: true) do |row|
       payslip = Payslip.new(row.to_h)
       payslips.add(payslip)
     end

@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Payslips", type: :request do
 
-  let(:payslip) { "this is a payslip" }
+  let(:params) { {"employee_identifier"=>"1066", "applicable_from"=>"2019-11-14T23:30:00.000Z", "applicable_to"=>"2019-11-15T01:30:00.000Z", "total_paid_no_oncosts"=>"75.00", "cost_category"=>"overtime"} }
+  let(:payslip) { Payslip.new(params) }
   let(:payslips) { Payslips.new }
 
   before do
@@ -28,24 +29,6 @@ RSpec.describe "Payslips", type: :request do
       before do
         PayslipsController.any_instance.stub(:valid_csv?).and_return(false)
       end
-
-      it "does NOT show the user the payslip information page" do
-        get "/payslips"
-        expect(response).not_to redirect_to("/index")
-      end
     end
   end
-
-
-  describe "GET /index" do
-
-    context "csv file valid" do
-      it "responds with status code 200" do
-        get "/payslips"
-        expect(response.code).to eq("200")
-      end
-
-    end
-  end
-
 end
